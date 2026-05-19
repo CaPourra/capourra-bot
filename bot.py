@@ -3,7 +3,7 @@ import os
 from PIL import Image
 import io
 from telegram import Update
-from telegram.ext import Application, MessageHandler, filters, ContextTypes
+from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
 
 # Token du bot
 TOKEN = "8816501367:AAEs73CUKH5YVD8YnQWLpwaIV-FsIu3wa70"
@@ -75,11 +75,8 @@ async def handle_document(update: Update, context: ContextTypes.DEFAULT_TYPE):
             caption="✅ Photo avec filigrane ASBL Ça Pourra"
         )
 
-def main():
-    app = Application.builder().token(TOKEN).build()
+if __name__ == "__main__":
+    app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(MessageHandler(filters.PHOTO, handle_photo))
     app.add_handler(MessageHandler(filters.Document.IMAGE, handle_document))
     app.run_polling()
-
-if __name__ == "__main__":
-    main()
